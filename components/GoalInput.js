@@ -1,4 +1,4 @@
-import { TextInput, Button, View, StyleSheet, Modal, Image } from "react-native";
+import { TextInput, Button, View, StyleSheet, Modal, Image, Alert } from "react-native";
 import { useState } from "react";
 
 function GoalInput(props) {
@@ -8,7 +8,18 @@ function GoalInput(props) {
     setEnteredGoalText(enteredText);
   }
 
+  function resetInput(){
+    setEnteredGoalText('')
+  }
+
   function addGoalHandler() {
+    if(!enteredGoalText){
+      Alert.alert(
+        'Invalid Text', 
+        'Please enter a valid text',
+        [{text: 'Okay!', style: 'cancel', onPress: resetInput}])
+      return
+    }
     props.onAddGoal(enteredGoalText);
     setEnteredGoalText("");
   }
